@@ -1,0 +1,103 @@
+:root {
+    --verde: #198754;
+    --verde-oscuro: #146c43;
+    --gris: #f5f7fa;
+}
+
+body {
+    margin: 0;
+    background: var(--gris);
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.login-body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, var(--verde), var(--verde-oscuro));
+}
+
+.login-card {
+    width: 420px;
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.2);
+}
+
+.sidebar {
+    width: 260px;
+    height: 100vh;
+    position: fixed;
+    background: linear-gradient(180deg, var(--verde), var(--verde-oscuro));
+    color: white;
+    padding: 20px;
+}
+
+.sidebar a {
+    display: block;
+    color: white;
+    text-decoration: none;
+    padding: 13px;
+    margin-bottom: 8px;
+    border-radius: 10px;
+}
+
+.sidebar a:hover {
+    background: rgba(255,255,255,.15);
+}
+
+.main {
+    margin-left: 260px;
+    padding: 25px;
+}
+
+.main-full {
+    padding: 25px;
+}
+
+.topbar {
+    background: white;
+    padding: 20px;
+    border-radius: 18px;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 12px rgba(0,0,0,.06);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-box {
+    background: white;
+    border-radius: 18px;
+    padding: 25px;
+    box-shadow: 0 4px 15px rgba(0,0,0,.06);
+}
+
+.stats {
+    color: white;
+    border-radius: 18px;
+    padding: 25px;
+}
+
+.table thead {
+    background: var(--verde);
+    color: white;
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        position: relative;
+        width: 100%;
+        height: auto;
+    }
+
+    .main {
+        margin-left: 0;
+    }
+
+    .login-card {
+        width: 90%;
+    }
+}

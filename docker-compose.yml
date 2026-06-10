@@ -1,0 +1,49 @@
+services:
+  web:
+    build: .
+    container_name: la_esperanza_web
+    volumes:
+      - ./app:/var/www/html
+    depends_on:
+      - db
+    networks:
+      - la_esperanza_net
+
+  db:
+    image: mysql:8.0
+    container_name: la_esperanza_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: la_esperanza
+      MYSQL_USER: esperanza_user
+      MYSQL_PASSWORD: esperanza123
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./app/sql/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - la_esperanza_net
+
+  caddy:
+    image: caddy:latest
+    container_name: la_esperanza_https
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - web
+    networks:
+      - la_esperanza_net
+
+volumes:
+  db_data:
+  caddy_data:
+  caddy_config:
+
+networks:
+  la_esperanza_net:
