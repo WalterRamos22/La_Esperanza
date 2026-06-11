@@ -50,5 +50,6 @@ Para ejecutar el proyecto localmente, se debe tener instalado Docker Desktop.
 
 Comando para levantar los contenedores:
 
+
 ```bash
 docker compose up -d
