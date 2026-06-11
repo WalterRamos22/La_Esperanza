@@ -5,6 +5,20 @@ if (isset($_SESSION["usuario"])) {
     header("Location: dashboard.php");
     exit;
 }
+
+$mensajeError = "";
+
+if (isset($_GET["error"])) {
+    if ($_GET["error"] === "campos") {
+        $mensajeError = "Debe completar tipo de usuario, teléfono o DPI y contraseña.";
+    } elseif ($_GET["error"] === "usuario") {
+        $mensajeError = "No existe un usuario activo con ese tipo de usuario y teléfono o DPI.";
+    } elseif ($_GET["error"] === "password") {
+        $mensajeError = "La contraseña ingresada es incorrecta.";
+    } else {
+        $mensajeError = "Credenciales incorrectas.";
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -15,47 +29,91 @@ if (isset($_SESSION["usuario"])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
+    <link href="css/style.css?v=3" rel="stylesheet">
 </head>
 
 <body class="login-body">
 
-<div class="login-card">
-    <h3 class="text-center mb-3">Comunidad La Esperanza</h3>
+    <main class="login-container">
 
-    <p class="text-center text-muted mb-4">
-        Sistema de Gestión y Comercialización Agrícola
-    </p>
+        <section class="login-title">
+            <div class="login-icon">🌱</div>
 
-    <?php if (isset($_GET["error"])): ?>
-        <div class="alert alert-danger">
-            Teléfono o contraseña incorrectos.
-        </div>
-    <?php endif; ?>
+            <h1>Comunidad La Esperanza</h1>
 
-    <form action="login.php" method="POST">
-        <div class="mb-3">
-            <label class="form-label">Número de teléfono</label>
-            <input type="text" name="telefono" class="form-control" placeholder="Ingrese su teléfono" required>
-        </div>
+            <p>
+                Sistema de Gestión y Comercialización Agrícola
+            </p>
+        </section>
 
-        <div class="mb-3">
-            <label class="form-label">Contraseña</label>
-            <input type="password" name="password" class="form-control" placeholder="Ingrese su contraseña" required>
-        </div>
+        <section class="login-card">
 
-        <button class="btn btn-success w-100">
-            Ingresar al sistema
-        </button>
-    </form>
+            <div class="login-card-header">
+                <h2>Iniciar sesión</h2>
 
-    <div class="mt-4 small text-muted">
-        <strong>Usuarios de prueba:</strong><br>
-        Admin: 55550001 / admin123<br>
-        Productor: 55550002 / prod123<br>
-        Comprador: 55550003 / comp123
-    </div>
-</div>
+                <p>
+                    Seleccione su tipo de usuario e ingrese sus datos de acceso.
+                </p>
+            </div>
+
+            <?php if ($mensajeError !== ""): ?>
+                <div class="alert alert-danger custom-alert">
+                    <?php echo htmlspecialchars($mensajeError); ?>
+                </div>
+            <?php endif; ?>
+
+            <form action="login.php" method="POST">
+
+                <div class="mb-3">
+                    <label class="form-label">Tipo de usuario</label>
+
+                    <select name="rol" class="form-select role-select" required>
+                        <option value="">Seleccione una opción</option>
+                        <option value="administrador">Administrador comunitario</option>
+                        <option value="productor">Productor</option>
+                        <option value="comprador">Comprador</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Teléfono o DPI</label>
+
+                    <input 
+                        type="text" 
+                        name="identificador" 
+                        class="form-control" 
+                        placeholder="Ingrese su teléfono o DPI" 
+                        required
+                    >
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Contraseña</label>
+
+                    <input 
+                        type="password" 
+                        name="password" 
+                        class="form-control" 
+                        placeholder="Ingrese su contraseña" 
+                        required
+                    >
+                </div>
+
+                <button type="submit" class="btn btn-login w-100">
+                    Ingresar al sistema
+                </button>
+
+            </form>
+
+        </section>
+
+        <footer class="login-footer">
+            <span>Universidad Mariano Gálvez</span>
+            <span>Proyecto Final</span>
+            <span>v1.0.0</span>
+        </footer>
+
+    </main>
 
 </body>
 </html>

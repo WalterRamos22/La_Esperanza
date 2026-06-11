@@ -40,7 +40,7 @@ function nombreRol($rol) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
+    <link href="css/style.css?v=3" rel="stylesheet">
 </head>
 
 <body>
@@ -66,7 +66,7 @@ function nombreRol($rol) {
     <?php endif; ?>
 
     <?php if ($rol === "administrador"): ?>
-        <a href="#">Usuarios</a>
+        <a href="usuarios.php">Usuarios</a>
         <a href="solicitudes.php">Seguimiento</a>
         <a href="entregas.php">Consultar entregas</a>
         <a href="calificaciones.php">Consultar calificaciones</a>
